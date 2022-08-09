@@ -1,4 +1,11 @@
-import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import tw from "tailwind-react-native-classnames";
 import { Icon } from "react-native-elements";
@@ -25,6 +32,13 @@ const NavOptions = () => {
   const navigation = useNavigation();
   const origin = useSelector(selectOrigin);
 
+  const createTwoButtonAlert = () =>
+    Alert.alert(
+      "Working on it...",
+      "Hi there! We are still working on this feature. It will be available very soon.",
+      [{ text: "OK", onPress: () => console.log("OK Pressed") }]
+    );
+
   return (
     <FlatList
       data={data}
@@ -32,7 +46,13 @@ const NavOptions = () => {
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (
         <TouchableOpacity
-          onPress={() => navigation.navigate(item.screen)}
+          onPress={() => {
+            if (item.id === "456") {
+              createTwoButtonAlert();
+            } else {
+              navigation.navigate(item.screen);
+            }
+          }}
           style={tw`p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40`}
           disabled={!origin}
         >
